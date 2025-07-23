@@ -39,19 +39,20 @@ if submitted:
 
 【回答】
 """
-    for q, a in zip(questions, responses):
-        prompt += f"{q} → {a}\n"
+    import openai
 
-    with st.spinner("診断中..."):
-        response = openai.ChatCompletion.create(
-            model="gpt-4o",
-            messages=[
-                {"role": "system", "content": "あなたは優秀な心理学者でユーザーの持つ力を信じている人です"},
-                {"role": "user", "content": prompt}
-            ],
-            temperature=0.9,
-            max_tokens=100
-        )
+client = openai.OpenAI(api_key=st.secrets["openai_api_key"])
+
+response = client.chat.completions.create(
+    model="gpt-4o",
+    messages=[
+        {"role": "system", "content": "あなたは優秀な心理学者でユーザーの持つ力を信じている人です"},
+        {"role": "user", "content": prompt}
+    ],
+    temperature=0.9,
+    max_tokens=100
+)
+
 
     result = response.choices[0].message.content
     st.markdown("---")
