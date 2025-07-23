@@ -1,10 +1,8 @@
-
 import streamlit as st
-import random
-from openai import OpenAI
+import openai
 
 # --- APIキーの設定（streamlit secretsを利用） ---
-client = OpenAI(api_key=st.secrets["openai_api_key"])
+openai.api_key = st.secrets["openai_api_key"]
 
 # --- タイトルと説明 ---
 st.set_page_config(page_title="アナタの知らないあなたを診断・簡易版", layout="centered")
@@ -45,7 +43,7 @@ if submitted:
         prompt += f"{q} → {a}\n"
 
     with st.spinner("診断中..."):
-        response = client.chat.completions.create(
+        response = openai.ChatCompletion.create(
             model="gpt-4o",
             messages=[
                 {"role": "system", "content": "あなたは優秀な心理学者でユーザーの持つ力を信じている人です"},
@@ -60,4 +58,4 @@ if submitted:
     st.subheader("診断結果")
     st.markdown(f"🌀 {result}")
     st.markdown("---")
-    st.caption("アナタの知らないあなたはどんなアナタですたか？明日へのヒントがみつかりましたか？")
+    st.caption("アナタの知らないあなたはどんなアナタでしたか？ 明日へのヒントが見つかりますように。")
