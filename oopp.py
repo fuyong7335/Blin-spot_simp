@@ -46,11 +46,11 @@ if submitted:
         response = client.chat.completions.create(
             model="gpt-4o",
             messages=[
-                {"role": "system", "content": "あなたは優秀な心理学者でユーザーの持つ力を信じている人です"},
+                {"role": "system", "content": "あなたは優秀な心理学者でユーザーの持つ力を信じている人です。ユーザーの回答から自身の見えない性質をさぐり活かせるアドバイスを簡易的に伝えます"},
                 {"role": "user", "content": prompt}
             ],
             temperature=0.9,
-            max_tokens=100
+            max_tokens=500
         )
 
     result = response.choices[0].message.content
